@@ -18,10 +18,11 @@ try {
   let content = fs.readFileSync(envConfigPath, 'utf8');
 
   // Replace placeholder with actual environment variable
-  const apiKey = process.env.GEMINI_API_KEY || '';
+  // Support both names to match common Vercel setups.
+  const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
   
   if (!apiKey) {
-    console.warn('Warning: GEMINI_API_KEY environment variable is not set');
+    console.warn('Warning: GEMINI_API_KEY (or NEXT_PUBLIC_GEMINI_API_KEY) environment variable is not set');
   }
   
   content = content.replace('%%GEMINI_API_KEY%%', apiKey);
